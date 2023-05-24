@@ -12,7 +12,7 @@ router.post(
   userSignUpValidator,
   validateRequest,
   async (req: Request, res: Response) => {
-    const { email, password, username } = req.body;
+    const { email, username, password } = req.body;
 
     const user = User.build({ email, password, username, role: "user" });
     await user.save();

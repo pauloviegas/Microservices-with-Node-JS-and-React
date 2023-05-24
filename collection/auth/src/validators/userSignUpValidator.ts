@@ -10,10 +10,6 @@ const userSignUpValidator = [
       throw new Error("E-mail already in use");
     }
   }),
-  body("password")
-    .trim()
-    .isLength({ min: 4, max: 20 })
-    .withMessage("Password must be between 4 and 20 characters"),
   body("username")
     .trim()
     .isLength({ min: 4, max: 20 })
@@ -22,6 +18,15 @@ const userSignUpValidator = [
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       throw new Error("username already in use");
+    }
+  }),
+  body("password")
+    .trim()
+    .isLength({ min: 4, max: 20 })
+    .withMessage("Password must be between 4 and 20 characters"),
+  body("password").custom(async (password, { req }) => {
+    if (password !== req.body.password2) {
+      throw new Error("Passwords must match");
     }
   }),
 ];
