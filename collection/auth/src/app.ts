@@ -6,6 +6,7 @@ import cookieSession from "cookie-session";
 import { signupRouter } from "./routes/signup";
 import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
+import { currentUserRouter } from "./routes/currentUser";
 import { errorHandler } from "./middlewares/errorHandler";
 import { NotFoundError } from "./errors/notFoundError";
 
@@ -23,6 +24,7 @@ app.use(
 app.use(signupRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
+app.use(currentUserRouter);
 app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
